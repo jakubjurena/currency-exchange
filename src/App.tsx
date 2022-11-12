@@ -1,10 +1,16 @@
 import React from 'react';
+import styled from 'styled-components';
 import './App.css';
+
+const AppContainer = styled.div`
+  
+`
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <AppContainer>
+
+    </AppContainer>
   );
 }
 
