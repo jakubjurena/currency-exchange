@@ -5,23 +5,20 @@ import styled from 'styled-components';
 import { Table } from './Table';
 
 const AppContainer = styled.div`
-  // TODO: style
+    padding: 1rem 0
 `
 
 const queryClient = new QueryClient()
  
-const App: FunctionComponent = () => {
-
-  return (
-     <QueryClientProvider client={queryClient}>
+const App: FunctionComponent = () => (
+    <QueryClientProvider client={queryClient}>
         <AppContainer>
-          <Table />
-          {/* <ExchangeForm /> //TODO: form for rate calculation */}
+            <Table />
+            {/* <ExchangeForm /> //TODO: form for rate calculation */}
         </AppContainer>
         <ReactQueryDevtools initialIsOpen={false} />
-     </QueryClientProvider>
-   )
- }
+    </QueryClientProvider>
+)
  
 
 export default App;
