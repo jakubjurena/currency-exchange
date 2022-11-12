@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
+import { ExchangeForm } from './ExchangeForm';
 import { Table } from './Table';
 
 const AppContainer = styled.div`
@@ -14,7 +15,7 @@ const App: FunctionComponent = () => (
     <QueryClientProvider client={queryClient}>
         <AppContainer>
             <Table />
-            {/* <ExchangeForm /> //TODO: form for rate calculation */}
+            <ExchangeForm />
         </AppContainer>
         <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

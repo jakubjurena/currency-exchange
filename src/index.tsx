@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
         --color: #333;
         --font-weight-bold: 400;
         --font-weight: 300;
+        --border-color: #e1e1e1;
     }
     body {
         margin: 0;
