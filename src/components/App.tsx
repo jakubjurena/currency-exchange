@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled from 'styled-components';
 import { ExchangeForm } from './ExchangeForm';
-import { Table } from './Table';
+import { DataPreview } from './DataPreview';
 
 const AppContainer = styled.div`
     padding: 1rem 0;
@@ -24,7 +24,7 @@ const App: FunctionComponent = () => (
     <QueryClientProvider client={queryClient}>
         <AppContainer>
             <AppContent>
-                <Table />
+                <DataPreview />
                 <ExchangeForm />
             </AppContent>
         </AppContainer>

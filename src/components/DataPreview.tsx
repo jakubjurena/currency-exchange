@@ -25,7 +25,7 @@ const TableContainer = styled.div<TableContainerProps>`
     justify-content: center;
 `
 
-export const Table: FunctionComponent = () => {
+export const DataPreview: FunctionComponent = () => {
     const [search, setSearch] = useState("");
     const {data, isError, isLoading} = useQuery("rates", getExchangeRates);
 

@@ -10,6 +10,7 @@ export const inputBase = css<InputProps>`
     padding: .5rem 1rem;
     margin-bottom: .5rem;
     background-color: ${({ disabled }) => disabled ? "#e1e1e1" : undefined};
+    transition: 300ms;
 `
 
 export const inputContainer = css`
@@ -18,4 +19,5 @@ export const inputContainer = css`
     padding: 1rem;
     width: var(--input-width);
     max-width: var(--input-max-width);
+    transition: 300ms;
 `
