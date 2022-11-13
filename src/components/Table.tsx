@@ -2,10 +2,15 @@ import React, { FunctionComponent, useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getExchangeRates } from '../api/getExhangeRates';
+import { inputContainer } from '../mixins';
 import { exchangeRateIncludes } from '../utils';
 import { Input } from './Input';
 import { TableHeader } from './TableHeader';
 import { TableRow } from './TableRow';
+
+const SearchConatiner = styled.div`
+    ${inputContainer}
+`
 
 type TableContainerProps = {
     isLoading: boolean;
@@ -25,12 +30,19 @@ export const Table: FunctionComponent = () => {
     const {data, isError, isLoading} = useQuery("rates", getExchangeRates);
 
     return (
-        <TableContainer {...{isLoading}}>
-            {isLoading && "Loading data, please wait."}
-            {isError && "Error occured, please refresh page and try again."}
-            {!isLoading && !isError && (
-                <>
-                    <Input type={"text"} onChange={(e) => setSearch(e.target.value)}/>
+        <>
+            <SearchConatiner>
+                <Input
+                    type={"text"}
+                    onChange={(e) => setSearch(e.target.value)}
+                    disabled={isLoading}
+                    placeholder={"Type to search"}
+                />
+            </SearchConatiner>
+            <TableContainer {...{isLoading}}>
+                {isLoading && "Loading data, please wait."}
+                {isError && "Error occured, please refresh page and try again."}
+                {!isLoading && !isError && (
                     <table>
                         <thead>
                             <TableHeader />
@@ -39,15 +51,15 @@ export const Table: FunctionComponent = () => {
                             {data?.exchangeRates
                                 .filter(
                                     exchangeRate => exchangeRateIncludes(exchangeRate, search)
-                                )
-                                .map(
-                                    exchangeRate => <TableRow {...exchangeRate} key={exchangeRate.code} />
-                                )
-                            }
+                                    )
+                                    .map(
+                                        exchangeRate => <TableRow {...exchangeRate} key={exchangeRate.code} />
+                                        )
+                                    }
                         </tbody>
                     </table>
-                </>
-            )}
-        </TableContainer>
+                )}
+            </TableContainer>
+        </>
     )
 }

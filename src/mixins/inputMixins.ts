@@ -11,3 +11,11 @@ export const inputBase = css<InputProps>`
     margin-bottom: .5rem;
     background-color: ${({ disabled }) => disabled ? "#e1e1e1" : undefined};
 `
+
+export const inputContainer = css`
+    display: flex;
+    flex-flow: column;
+    padding: 1rem;
+    width: var(--input-width);
+    max-width: var(--input-max-width);
+`

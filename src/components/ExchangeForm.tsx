@@ -2,6 +2,7 @@ import React, { FunctionComponent, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getExchangeRates } from '../api/getExhangeRates';
+import { inputContainer } from '../mixins';
 import { convertCurrency } from '../utils';
 import { Input } from './Input';
 import { Select } from './Select';
@@ -14,11 +15,7 @@ const FormContainer = styled.div`
 `
 
 const Form = styled.form`
-    display: flex;
-    flex-flow: column;
-    padding: 1rem;
-    width: 100vw;
-    max-width: 400px;
+    ${inputContainer}
 `
 
 const SubmitButton = styled(Input)`

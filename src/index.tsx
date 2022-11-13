@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
         --font-weight-bold: 400;
         --font-weight: 300;
         --border-color: #e1e1e1;
+        --content-width: 95vw;
+        --content-max-width: 450px;
+        --input-width: 95vw;
+        --input-max-width: 350px;
     }
     body {
         margin: 0;
@@ -19,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
         color: var(--color);
         font-weight: var(--font-weight);
         font-size: 18px;
+        box-sizing: border-box;
     }
 `
 

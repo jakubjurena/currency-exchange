@@ -6,7 +6,16 @@ import { ExchangeForm } from './ExchangeForm';
 import { Table } from './Table';
 
 const AppContainer = styled.div`
-    padding: 1rem 0
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+`
+const AppContent = styled.div`
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 `
 
 const queryClient = new QueryClient()
@@ -14,8 +23,10 @@ const queryClient = new QueryClient()
 const App: FunctionComponent = () => (
     <QueryClientProvider client={queryClient}>
         <AppContainer>
-            <Table />
-            <ExchangeForm />
+            <AppContent>
+                <Table />
+                <ExchangeForm />
+            </AppContent>
         </AppContainer>
         <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
