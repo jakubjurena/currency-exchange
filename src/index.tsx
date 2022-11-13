@@ -16,7 +16,11 @@ const GlobalStyle = createGlobalStyle`
         --content-max-width: 450px;
         --input-width: 95vw;
         --input-max-width: 350px;
+        --table-width: var(--input-width);
+        --table-max-width: 450px;
         --transition: 300ms;
+        --primary-color: rgb(138, 69, 255);
+        --primary-color-hovered: rgb(104, 15, 255);
     }
     body {
         margin: 0;

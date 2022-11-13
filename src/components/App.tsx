@@ -7,7 +7,7 @@ import { ExchangeForm } from './ExchangeForm';
 import { DataPreview } from './DataPreview';
 
 const AppContainer = styled.div`
-    padding: 1rem 0;
+    padding: 2rem 0;
     display: flex;
     justify-content: center;
 `

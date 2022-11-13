@@ -16,11 +16,11 @@ const Form = styled.form`
 
 const SubmitButton = styled(Input)`
     border: none;
-    background-color: ${({ disabled }) => disabled ? "#919191" : "rgb(138, 69, 255)"};
+    background-color: ${({ disabled }) => disabled ? "#919191" : "var(--primary-color)"};
     color: #fff;
     cursor: ${({ disabled }) => disabled ? undefined : "pointer"};
     &:hover {
-        background-color: ${({ disabled }) => disabled ? undefined : "rgb(104, 15, 255)"};;
+        background-color: ${({ disabled }) => disabled ? undefined : "var(--primary-color-hovered)"};;
     }
 `
 

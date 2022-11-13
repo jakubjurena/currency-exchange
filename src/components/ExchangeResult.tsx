@@ -17,6 +17,6 @@ export const ExchangeResult: FunctionComponent<ExchangeResultProps> = ({
     currencyCode,
 }) => (
     <ResultContainer>
-        {`${czkAmount} CZK = ${currencyAmount} ${currencyCode}`}
+        {`${czkAmount.toLocaleString()} CZK = ${currencyAmount.toLocaleString()} ${currencyCode}`}
     </ResultContainer>
 )

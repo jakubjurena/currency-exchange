@@ -5,6 +5,8 @@ import { hideOnSmallScreen } from '../mixins';
 
 const Th = styled.th`
     ${hideOnSmallScreen}
+    padding: .75rem .25rem;
+    text-align: left;
 `;
 
 export const TableHeader: FunctionComponent = () => (

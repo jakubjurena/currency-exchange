@@ -2,8 +2,9 @@ import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
 import { useExchangeRates } from '../hooks';
-import { inputContainer } from '../mixins';
+import { inputContainer, rounded } from '../mixins';
 import { exchangeRateIncludes } from '../utils';
+import { EmptyRow } from './EmptyRow';
 import { Input } from './Input';
 import { TableHeader } from './TableHeader';
 import { TableRow } from './TableRow';
@@ -17,21 +18,37 @@ type TableContainerProps = {
 }
 
 const TableContainer = styled.div<TableContainerProps>`
-    height: 500px;
     overflow-y: scroll;
     display: flex;
     align-items: ${({ alignItemCenter }) => alignItemCenter ? "center" : undefined};
     justify-content: center;
+    width: var(--table-width);
+    max-width: var(--table-max-width);
+    height: 350px;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.75);
+    ${rounded}
 `
 
-const Table = styled.table`
+type TableProps = {
+    isEmpty?: boolean;
+}
+
+const Table = styled.table<TableProps>`
     border: none;
     border-collapse: collapse;
+    width: 100%;
+    height: ${({ isEmpty }) => isEmpty ? "auto" : "fit-content" };
 `
 
 export const DataPreview: FunctionComponent = () => {
     const [search, setSearch] = useState("");
     const {data, isError, isLoading} = useExchangeRates();
+
+    const filteredRates = data?.exchangeRates
+        .filter(
+            exchangeRate => exchangeRateIncludes(exchangeRate, search)
+        )
+    const isEmpty = !filteredRates || filteredRates.length === 0;
 
     return (
         <>
@@ -47,19 +64,19 @@ export const DataPreview: FunctionComponent = () => {
                 {isLoading && "Loading data, please wait."}
                 {isError && "Error occured, please refresh page and try again."}
                 {!isLoading && !isError && (
-                    <Table>
+                    <Table {...{ isEmpty }}>
                         <thead>
                             <TableHeader />
                         </thead>
                         <tbody>
-                            {data?.exchangeRates
-                                .filter(
-                                    exchangeRate => exchangeRateIncludes(exchangeRate, search)
-                                    )
-                                    .map(
-                                        exchangeRate => <TableRow {...exchangeRate} key={exchangeRate.code} />
-                                        )
-                                    }
+                            {
+                                (isEmpty) && <EmptyRow {...{search}} />
+                            }
+                            {
+                                filteredRates?.map(
+                                    exchangeRate => <TableRow {...exchangeRate} key={exchangeRate.code} />
+                                )
+                            }
                         </tbody>
                     </Table>
                 )}

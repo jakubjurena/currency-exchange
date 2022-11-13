@@ -9,13 +9,13 @@ const Tr = styled.tr`
     cursor: pointer;
     transition: var(--transition);
     &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(138, 69, 255, 0.1);
     }
 `;
 
 const Td = styled.td`
     ${hideOnSmallScreen}
-    padding: 0 5px;
+    padding: .5rem 5px;
 `;
 
 export type TableRowProps = ExchangeRate;
