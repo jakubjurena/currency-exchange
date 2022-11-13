@@ -25,6 +25,11 @@ const TableContainer = styled.div<TableContainerProps>`
     justify-content: center;
 `
 
+const Table = styled.table`
+    border: none;
+    border-spacing: none;
+`
+
 export const DataPreview: FunctionComponent = () => {
     const [search, setSearch] = useState("");
     const {data, isError, isLoading} = useQuery("rates", getExchangeRates);
@@ -43,7 +48,7 @@ export const DataPreview: FunctionComponent = () => {
                 {isLoading && "Loading data, please wait."}
                 {isError && "Error occured, please refresh page and try again."}
                 {!isLoading && !isError && (
-                    <table>
+                    <Table>
                         <thead>
                             <TableHeader />
                         </thead>
@@ -57,7 +62,7 @@ export const DataPreview: FunctionComponent = () => {
                                         )
                                     }
                         </tbody>
-                    </table>
+                    </Table>
                 )}
             </TableContainer>
         </>
