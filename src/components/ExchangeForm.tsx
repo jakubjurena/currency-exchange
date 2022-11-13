@@ -1,10 +1,10 @@
-import { FunctionComponent, useState } from 'react';
-import { useQuery } from 'react-query';
+import { FunctionComponent, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getExchangeRates } from '../api/getExhangeRates';
-import { useSelectedExchangeRate } from '../hooks/useSelectedExchangeRate';
+
+import { useExchangeRates, useSelectedExchangeRate } from '../hooks';
 import { inputContainer } from '../mixins';
 import { convertCurrency } from '../utils';
+import { ExchangeResult, ExchangeResultProps } from './ExchangeResult';
 import { Input } from './Input';
 import { Select } from './Select';
 
@@ -20,28 +20,23 @@ const SubmitButton = styled(Input)`
     color: #fff;
     cursor: ${({ disabled }) => disabled ? undefined : "pointer"};
     &:hover {
-        
         background-color: ${({ disabled }) => disabled ? undefined : "rgb(104, 15, 255)"};;
     }
 `
-
-const ResultContainer = styled.div`
-    margin-bottom: 2rem;
-`
-
-type Result = {
-    czkAmount: number;
-    rateAmount: number;
-    rateCode: string;
-}
 
 export const ExchangeForm: FunctionComponent = () => {
     const [selectedExchangeRate, setSelectedExchangeRate] = useSelectedExchangeRate(
         (state) => [state.rate, state.setRate]
     );
-    const [result, setResult] = useState<Result | undefined>();
+    const [result, setResult] = useState<ExchangeResultProps | undefined>();
     const [czkAmount, setCzkAmount] = useState<number | undefined>(undefined)
-    const {data, isLoading} = useQuery("rates", getExchangeRates);
+    const {data, isLoading} = useExchangeRates();
+
+    useEffect(
+        () => {
+            setSelectedExchangeRate(data?.exchangeRates[0]);
+        }, [data?.exchangeRates, setSelectedExchangeRate]
+    )
 
     return (
         <>
@@ -52,12 +47,11 @@ export const ExchangeForm: FunctionComponent = () => {
                 }
                 setResult({
                     czkAmount,
-                    rateAmount: convertCurrency(
+                    currencyAmount: convertCurrency(
                         czkAmount,
-                        selectedExchangeRate.amount,
-                        selectedExchangeRate.rate
+                        selectedExchangeRate,
                     ),
-                    rateCode: selectedExchangeRate?.code
+                    currencyCode: selectedExchangeRate?.code
                 });
             }}>
                 <Input
@@ -75,12 +69,18 @@ export const ExchangeForm: FunctionComponent = () => {
                     value={selectedExchangeRate?.code}
                 >
                     {data?.exchangeRates.map(
-                        exchangeRate => <option key={exchangeRate.code} value={exchangeRate.code}>{`${exchangeRate.country} - ${exchangeRate.currency} (${exchangeRate.code})`}</option>
+                        exchangeRate => (
+                            <option key={exchangeRate.code} value={exchangeRate.code}>
+                                {`${exchangeRate.country} - ${exchangeRate.currency} (${exchangeRate.code})`}
+                            </option>
+                        )
                     )}
                 </Select>
                 <SubmitButton type={"submit"} value="Submit" disabled={isLoading} />
             </Form>
-            {result !== undefined && !isNaN(result.czkAmount) && selectedExchangeRate && <ResultContainer>{`${result.czkAmount} CZK = ${result.rateAmount} ${result.rateCode}`}</ResultContainer>}
+            {
+                result !== undefined && !isNaN(result.czkAmount) && selectedExchangeRate && <ExchangeResult {...result} />
+            }
         </>
     )
 };

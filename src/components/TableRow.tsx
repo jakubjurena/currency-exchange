@@ -1,16 +1,21 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { useSelectedExchangeRate } from '../hooks/useSelectedExchangeRate';
-import { smallScreen } from '../mixins';
+
+import { useSelectedExchangeRate } from '../hooks';
+import { hideOnSmallScreen } from '../mixins';
 import { ExchangeRate } from '../types';
 
 const Tr = styled.tr`
     cursor: pointer;
-    background-color: rgba(0,0,0, 0.1);
+    transition: var(--transition);
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
 `;
 
 const Td = styled.td`
-    ${smallScreen}
+    ${hideOnSmallScreen}
+    padding: 0 5px;
 `;
 
 export type TableRowProps = ExchangeRate;

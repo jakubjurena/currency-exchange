@@ -19,6 +19,12 @@ const parseDataLine = (dataLine: string): ExchangeRate => {
     }
 }
 
+/**
+ * Function parses data from request.
+ * 
+ * @param rawData Data from request.
+ * @returns Parsed data (date and exchange rates)
+ */
 export const parseCurrenciesData = (rawData: string): ParsedData | undefined => {
     try {
         const lines = rawData.split("\n");
@@ -33,7 +39,7 @@ export const parseCurrenciesData = (rawData: string): ParsedData | undefined => 
     } catch (e) {
         if (e instanceof Error) {
             console.error("Invalid API response", e.message);
-            // TODO: show error to user.
+            // Show error to user? Is "Something went wrong" enough?
         }
     }
     return;

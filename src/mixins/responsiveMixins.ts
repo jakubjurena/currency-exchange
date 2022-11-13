@@ -4,7 +4,7 @@ type SmallScreenProps = {
     hideOnSmallScreen?: boolean;
 }
 
-export const smallScreen = css<SmallScreenProps>`
+export const hideOnSmallScreen = css<SmallScreenProps>`
     @media (max-width: 500px) {
         display: ${({hideOnSmallScreen}) => hideOnSmallScreen ? "none" : undefined};
     }

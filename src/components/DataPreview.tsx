@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from 'react';
-import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { getExchangeRates } from '../api/getExhangeRates';
+
+import { useExchangeRates } from '../hooks';
 import { inputContainer } from '../mixins';
 import { exchangeRateIncludes } from '../utils';
 import { Input } from './Input';
@@ -13,26 +13,25 @@ const SearchConatiner = styled.div`
 `
 
 type TableContainerProps = {
-    isLoading: boolean;
+    alignItemCenter: boolean;
 }
 
 const TableContainer = styled.div<TableContainerProps>`
     height: 500px;
     overflow-y: scroll;
-    width: 100%;
     display: flex;
-    align-items: ${({ isLoading }) => isLoading ? "center" : undefined};
+    align-items: ${({ alignItemCenter }) => alignItemCenter ? "center" : undefined};
     justify-content: center;
 `
 
 const Table = styled.table`
     border: none;
-    border-spacing: none;
+    border-collapse: collapse;
 `
 
 export const DataPreview: FunctionComponent = () => {
     const [search, setSearch] = useState("");
-    const {data, isError, isLoading} = useQuery("rates", getExchangeRates);
+    const {data, isError, isLoading} = useExchangeRates();
 
     return (
         <>
@@ -44,7 +43,7 @@ export const DataPreview: FunctionComponent = () => {
                     placeholder={"Type to search"}
                 />
             </SearchConatiner>
-            <TableContainer {...{isLoading}}>
+            <TableContainer {...{alignItemCenter: isLoading || isError}}>
                 {isLoading && "Loading data, please wait."}
                 {isError && "Error occured, please refresh page and try again."}
                 {!isLoading && !isError && (

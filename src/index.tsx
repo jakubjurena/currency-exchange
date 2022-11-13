@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     :root {
         --background-color: #fff;
         --color: #333;
+        --font-size: 18px;
         --font-weight-bold: 400;
         --font-weight: 300;
         --border-color: #e1e1e1;
@@ -15,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
         --content-max-width: 450px;
         --input-width: 95vw;
         --input-max-width: 350px;
+        --transition: 300ms;
     }
     body {
         margin: 0;
@@ -22,7 +24,8 @@ const GlobalStyle = createGlobalStyle`
         background-color: var(--background-color);
         color: var(--color);
         font-weight: var(--font-weight);
-        font-size: 18px;
+        font-size: var(--font-size);
+        height: 100vh;
         box-sizing: border-box;
     }
 `
