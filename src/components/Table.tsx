@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getExchangeRates } from '../api/getExhangeRates';

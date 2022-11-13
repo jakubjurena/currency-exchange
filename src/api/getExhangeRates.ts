@@ -4,8 +4,12 @@ import { ParsedData } from "../types";
 import { parseCurrenciesData, sleep } from "../utils";
 
 export const getExchangeRates = async (): Promise<ParsedData | undefined> => {
-    const response = await fetch(CNB_EXCHANGE_RATES_URL, { mode: "no-cors"});
-    console.log(response.ok);
+    const headers = new Headers()
+    headers.append("Content-Type", "text/plain");
+    headers.append("Accept", "text/plain");
+    const response = await fetch(CNB_EXCHANGE_RATES_URL, { mode: "no-cors", headers});
+    const text = await response.text();
+    console.log(response.statusText, text);
     const data = parseCurrenciesData(rawData); // TODO: fix CORS and use response
 
     await sleep(1000);

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
+import { FunctionComponent, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getExchangeRates } from '../api/getExhangeRates';
@@ -7,15 +7,10 @@ import { convertCurrency } from '../utils';
 import { Input } from './Input';
 import { Select } from './Select';
 
-const FormContainer = styled.div`
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    margin-top: 2rem;
-`
 
 const Form = styled.form`
     ${inputContainer}
+    margin-top: 2rem;
 `
 
 const SubmitButton = styled(Input)`
@@ -29,6 +24,10 @@ const SubmitButton = styled(Input)`
     }
 `
 
+const ResultContainer = styled.div`
+    margin-bottom: 2rem;
+`
+
 export const ExchangeForm: FunctionComponent = () => {
     const [result, setResult] = useState<number | undefined>();
     const czkRef = useRef<HTMLInputElement>(null);
@@ -36,7 +35,7 @@ export const ExchangeForm: FunctionComponent = () => {
     const {data, isLoading} = useQuery("rates", getExchangeRates);
 
     return (
-        <FormContainer>
+        <>
             <Form onSubmit={(e) => {
                 e.preventDefault();
                 const selectedRate = data?.exchangeRates.find(rate => rate.code === slectRef.current?.value || "");
@@ -65,7 +64,7 @@ export const ExchangeForm: FunctionComponent = () => {
                 </Select>
                 <SubmitButton type={"submit"} value="Submit" disabled={isLoading} />
             </Form>
-            {result !== undefined && !isNaN(result) && <div>{`${czkRef.current?.value} CZK = ${result} ${slectRef.current?.value}`}</div>}
-        </FormContainer>
+            {result !== undefined && !isNaN(result) && <ResultContainer>{`${czkRef.current?.value} CZK = ${result} ${slectRef.current?.value}`}</ResultContainer>}
+        </>
     )
 }
