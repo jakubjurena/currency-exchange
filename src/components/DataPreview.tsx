@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useExchangeRates } from '../hooks';
 import { inputContainer, rounded } from '../mixins';
 import { exchangeRateIncludes } from '../utils';
-import { EmptyRow } from './EmptyRow';
+import { StatusRow } from './StatusRow';
 import { Input } from './Input';
 import { TableHeader } from './TableHeader';
 import { TableRow } from './TableRow';
@@ -13,14 +13,9 @@ const SearchConatiner = styled.div`
     ${inputContainer}
 `
 
-type TableContainerProps = {
-    alignItemCenter: boolean;
-}
-
-const TableContainer = styled.div<TableContainerProps>`
+const TableContainer = styled.div`
     overflow-y: scroll;
     display: flex;
-    align-items: ${({ alignItemCenter }) => alignItemCenter ? "center" : undefined};
     justify-content: center;
     width: var(--table-width);
     max-width: var(--table-max-width);
@@ -38,6 +33,21 @@ const Table = styled.table<TableProps>`
     border-collapse: collapse;
     width: 100%;
     height: ${({ isEmpty }) => isEmpty ? "auto" : "fit-content" };
+    text-align: left;
+    position: relative;
+`
+
+const DateContainer = styled.div`
+    padding: 0.5rem;
+    font-size: 80%;
+    align-self: end;
+    height: var(--font-size);
+`
+
+const Thead = styled.thead`
+    position: sticky;
+    top: 0;
+    background-color: var(--background-color);
 `
 
 export const DataPreview: FunctionComponent = () => {
@@ -60,27 +70,24 @@ export const DataPreview: FunctionComponent = () => {
                     placeholder={"Type to search"}
                 />
             </SearchConatiner>
-            <TableContainer {...{alignItemCenter: isLoading || isError}}>
-                {isLoading && "Loading data, please wait."}
-                {isError && "Error occured, please refresh page and try again."}
-                {!isLoading && !isError && (
-                    <Table {...{ isEmpty }}>
-                        <thead>
-                            <TableHeader />
-                        </thead>
-                        <tbody>
-                            {
-                                (isEmpty) && <EmptyRow {...{search}} />
-                            }
-                            {
-                                filteredRates?.map(
-                                    exchangeRate => <TableRow {...exchangeRate} key={exchangeRate.code} />
+            <TableContainer>
+                <Table>
+                    <Thead>
+                        <TableHeader />
+                    </Thead>
+                    <tbody>
+                        { (!isLoading && isEmpty) && <StatusRow text={`No result for "${search}"`} /> }
+                        { (isLoading) && <StatusRow text={`Loading data, please wait.`} /> }
+                        { (!isLoading && isError) && <StatusRow text={`Error occured, please refresh page and try again.`} /> }
+                        {
+                            filteredRates?.map(
+                                exchangeRate => <TableRow {...exchangeRate} key={exchangeRate.code} />
                                 )
                             }
-                        </tbody>
-                    </Table>
-                )}
+                    </tbody>
+                </Table>
             </TableContainer>
+            <DateContainer>{!isLoading && "Rates from"} {!isLoading && data?.date.toLocaleDateString()}</DateContainer>
         </>
     )
 }

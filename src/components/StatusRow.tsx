@@ -5,16 +5,16 @@ const Td = styled.td`
     text-align: center;
 `
 
-export type EmptyRowProps = {
-    search: string;
+export type StatusRowProps = {
+    text: string;
 }
 
-export const EmptyRow: FunctionComponent<EmptyRowProps> = ({
-    search,
+export const StatusRow: FunctionComponent<StatusRowProps> = ({
+    text,
 }) => (
     <tr>
         <Td colSpan={5}>
-            No result for "{search}"
+            {text}
         </Td>
     </tr>
 );
