@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
 import { useExchangeRates } from '../hooks';
-import { inputContainer, rounded } from '../mixins';
+import { inputContainer, rounded, visuallyHidden } from '../mixins';
 import { exchangeRateIncludes } from '../utils';
 import { StatusRow } from './StatusRow';
 import { Input } from './Input';
@@ -48,6 +48,9 @@ const Thead = styled.thead`
     position: sticky;
     top: 0;
     background-color: var(--background-color);
+    @media screen and (max-width: 600px) {
+        ${visuallyHidden}
+    }
 `
 
 export const DataPreview: FunctionComponent = () => {

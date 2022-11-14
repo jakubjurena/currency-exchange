@@ -13,8 +13,6 @@ const AppContainer = styled.div`
 `
 
 const AppContent = styled.div`
-    width: var(--content-width);
-    max-width: var(--content-max-width);
     display: flex;
     flex-flow: column;
     align-items: center;

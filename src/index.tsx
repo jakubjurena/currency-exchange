@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
         --background-color: #fff;
         --color: #333;
         --font-size: 18px;
-        --font-weight-bold: 400;
         --font-weight: 300;
+        --font-weight-bold: 600;
         --border-color: #e1e1e1;
         --content-width: 95vw;
         --content-max-width: 450px;
@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
         --transition: 300ms;
         --primary-color: rgb(138, 69, 255);
         --primary-color-hovered: rgb(104, 15, 255);
+        --mobile-width: 600px;
     }
     body {
         margin: 0;
