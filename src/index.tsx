@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
         --input-width: 95vw;
         --input-max-width: 350px;
         --table-width: var(--input-width);
-        --table-max-width: 450px;
+        --table-max-width: 550px;
         --transition: 300ms;
         --primary-color: rgb(138, 69, 255);
         --primary-color-hovered: rgb(104, 15, 255);

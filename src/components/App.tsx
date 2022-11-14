@@ -11,6 +11,7 @@ const AppContainer = styled.div`
     display: flex;
     justify-content: center;
 `
+
 const AppContent = styled.div`
     width: var(--content-width);
     max-width: var(--content-max-width);

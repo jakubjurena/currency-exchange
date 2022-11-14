@@ -30,7 +30,9 @@ export const parseCurrenciesData = (rawData: string): ParsedData | undefined => 
         const lines = rawData.split("\n");
         const date = new Date(lines[0].split("  ")[0]);
 
-        const dataLines = lines.slice(2); // Throw away date and headers.
+        const dataLines = lines
+            .slice(2) // Throw away date and headers.
+            .filter(line => line !== "")
 
         return {
             date,
