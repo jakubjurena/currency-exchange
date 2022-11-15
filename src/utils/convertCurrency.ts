@@ -13,6 +13,9 @@ export const convertCurrency = (
     exchangeRate: ExchangeRate,
     decimalPlaces: number = 2,
 ): number => {
+    if (decimalPlaces < 0 || exchangeRate.rate < 0 || exchangeRate.amount < 0 || czkAmount < 0) {
+        return NaN;
+    }
     const decimalPlacesHelper = Math.pow(10, decimalPlaces);
     return Math.round(
         czkAmount / exchangeRate.rate * exchangeRate.amount * decimalPlacesHelper
