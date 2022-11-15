@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
 /**
- * This mixin can be used to hide element,
+ * This mixin can be used to visually hide element,
  * but stay accessible for screen readers.
  */
 export const visuallyHidden = css`

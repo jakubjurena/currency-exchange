@@ -1,10 +1,10 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
 import { useExchangeRates, useSelectedExchangeRate } from '../hooks';
 import { inputContainer } from '../mixins';
 import { convertCurrency } from '../utils';
-import { ExchangeResult, ExchangeResultProps } from './ExchangeResult';
+import { ExchangeResult, ExchangeResultType } from './ExchangeResult';
 import { Input } from './Input';
 import { Select } from './Select';
 
@@ -28,15 +28,9 @@ export const ExchangeForm: FunctionComponent = () => {
     const [selectedExchangeRate, setSelectedExchangeRate] = useSelectedExchangeRate(
         (state) => [state.rate, state.setRate]
     );
-    const [result, setResult] = useState<ExchangeResultProps | undefined>();
+    const [result, setResult] = useState<ExchangeResultType | undefined>();
     const [czkAmount, setCzkAmount] = useState<number | undefined>(undefined)
     const {data, isLoading} = useExchangeRates();
-
-    useEffect(
-        () => {
-            setSelectedExchangeRate(data?.exchangeRates[0]);
-        }, [data?.exchangeRates, setSelectedExchangeRate]
-    )
 
     return (
         <>
@@ -78,9 +72,7 @@ export const ExchangeForm: FunctionComponent = () => {
                 </Select>
                 <SubmitButton type={"submit"} value="Submit" disabled={isLoading} />
             </Form>
-            {
-                result !== undefined && !isNaN(result.czkAmount) && selectedExchangeRate && <ExchangeResult {...result} />
-            }
+            <ExchangeResult {...{ result }} />
         </>
     )
 };

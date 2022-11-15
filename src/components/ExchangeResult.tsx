@@ -5,18 +5,26 @@ const ResultContainer = styled.div`
 margin-bottom: 2rem;
 `
 
-export type ExchangeResultProps = {
+export type ExchangeResultType = {
     czkAmount: number;
     currencyAmount: number;
     currencyCode: string;
 }
 
+export type ExchangeResultProps = {
+    result?: ExchangeResultType;
+}
+
 export const ExchangeResult: FunctionComponent<ExchangeResultProps> = ({
-    czkAmount,
-    currencyAmount,
-    currencyCode,
-}) => (
-    <ResultContainer>
-        {`${czkAmount.toLocaleString()} CZK = ${currencyAmount.toLocaleString()} ${currencyCode}`}
-    </ResultContainer>
-)
+    result
+}) => {
+    if (!result || isNaN(result.czkAmount) || isNaN(result.currencyAmount)) {
+        return null;
+    }
+
+    return (
+        <ResultContainer>
+            {`${result.czkAmount.toLocaleString()} CZK = ${result.currencyAmount.toLocaleString()} ${result.currencyCode}`}
+        </ResultContainer>
+    )
+}

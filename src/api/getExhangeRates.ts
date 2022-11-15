@@ -10,7 +10,7 @@ export const getExchangeRates: QueryFunction<ParsedData | undefined> = async ({ 
     const rawData = await response.text();
     const data = parseCurrenciesData(rawData);
 
-    await sleep(1000); // Only to show page loading
+    await sleep(1500); // Only to show page loading
 
     return data;
 }

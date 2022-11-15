@@ -90,7 +90,7 @@ export const DataPreview: FunctionComponent = () => {
                     </tbody>
                 </Table>
             </TableContainer>
-            <DateContainer>{!isLoading && "Rates from"} {!isLoading && data?.date.toLocaleDateString()}</DateContainer>
+            <DateContainer>{!isLoading && `Rates from${data?.date.toLocaleDateString()}`}</DateContainer>
         </>
     )
 }
